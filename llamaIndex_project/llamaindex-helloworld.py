@@ -10,13 +10,13 @@ from llama_index.core import Settings
 from llama_index.core.node_parser import SentenceSplitter
 
 # embedding models
-from llama_index.embeddings.openai import OpenAIEmbedding
+from llama_index.embeddings.ollama import OllamaEmbedding
 
 # Index creation - Vector Store Index
 from llama_index.core import VectorStoreIndex
 
-# LLm configuration -- OpenAI
-from llama_index.llms.openai import OpenAI
+# LLm configuration -- Ollama
+from llama_index.llms.ollama import Ollama
 
 from llama_index.core.ingestion import IngestionPipeline
 
@@ -33,8 +33,8 @@ from llama_index.vector_stores.chroma import ChromaVectorStore
 
 load_dotenv()
 
-Settings.llm = OpenAI(model="llama3.1:latest")
-Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-small")
+Settings.llm = Ollama(model="llama3.1:latest")
+Settings.embed_model = OllamaEmbedding(model_name="nomic-embed-text:latest")
 Settings.chunk_size = 512
 Settings.chunk_overlap = 50
 
@@ -52,7 +52,7 @@ def get_transformations():
         TitleExtractor(),
         # SummaryExtractor(),  # Uncomment for more metadata (slower)
         # KeywordExtractor(),  # Uncomment for more metadata (slower)
-        OpenAIEmbedding(model=Settings.embed_model.model_name),
+        Settings.embed_model,
     ]
 
 

@@ -3,11 +3,16 @@ name = "llamaindex-project"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
+    "chromadb>=1.5.8",
     "dotenv-python>=0.0.1",
     "llama-index>=0.14.16",
     "llama-index-core>=0.14.16",
+    "llama-index-embeddings-ollama>=0.9.0",
+    "llama-index-embeddings-openai>=0.6.0",
     "llama-index-llms-ollama>=0.9.1",
+    "llama-index-llms-openai>=0.7.5",
+    "llama-index-vector-stores-chroma>=0.5.5",
     "python-dotenv>=1.2.1",
 ]
