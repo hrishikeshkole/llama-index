@@ -1,0 +1,4 @@
+LlamaIndex is a data framework for LLM-based applications.
+It primarily focuses on the ingestion, structuring, and accessing of private or domain-specific data.
+With LlamaIndex, developers can easily connect their existing data sources, such as APIs, PDFs, SQL databases, and more, to Large Language Models (LLMs) like GPT-4 or local models like Llama 3.
+It is widely used for building Retrieval-Augmented Generation (RAG) applications, which allow AI models to answer questions based on the provided documents.

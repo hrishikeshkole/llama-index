@@ -18,7 +18,8 @@ from llama_index.core import VectorStoreIndex
 # LLm configuration -- Ollama
 from llama_index.llms.ollama import Ollama
 
-from llama_index.core.ingestion import IngestionPipeline
+from llama_index.core.ingestion import IngestionPipeline, IngestionCache
+from llama_index.core.storage.kvstore import SimpleKVStore
 
 from llama_index.core.extractors import (
     TitleExtractor,
@@ -33,13 +34,14 @@ from llama_index.vector_stores.chroma import ChromaVectorStore
 
 load_dotenv()
 
-Settings.llm = Ollama(model="llama3.1:latest")
+Settings.llm = Ollama(model="llama3.1:latest", request_timeout=360.0)
 Settings.embed_model = OllamaEmbedding(model_name="nomic-embed-text:latest")
 Settings.chunk_size = 512
 Settings.chunk_overlap = 50
 
-CACHE_DIR = "./pipeline_cache"
-CHROMA_DIR = "./chroma_db_cached"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CACHE_DIR = os.path.join(BASE_DIR, "pipeline_cache")
+CHROMA_DIR = os.path.join(BASE_DIR, "chroma_db_cached")
 
 
 def get_transformations():
@@ -63,9 +65,10 @@ def main():
 
     # Load documents
     print("Loading documents...")
-    print("Files:", os.listdir("llamaindex-docs"))
+    docs_dir = os.path.join(BASE_DIR, "llamaindex-docs")
+    print("Files:", os.listdir(docs_dir))
     documents = SimpleDirectoryReader(
-        input_dir="llamaindex-docs", required_exts=[".txt"], num_files_limit=10
+        input_dir=docs_dir, required_exts=[".txt"], num_files_limit=10
     ).load_data()
     print(f"Loaded {len(documents)} documents.")
 
@@ -77,12 +80,17 @@ def main():
     print(f"ChromaDB path: {CHROMA_DIR}")
     print(f"Existing embeddings in ChromaDB: {chroma_collection.count()}")
 
+    # Create explicit KV store for node transformation caching
+    kv_store = SimpleKVStore()
+    ingestion_cache = IngestionCache(cache=kv_store, collection="llama_cache")
+
     # Create and run the ingestion pipeline with caching
     print("Creating ingestion pipeline...")
     pipeline = IngestionPipeline(
         transformations=get_transformations(),
         vector_store=vector_store,
-        docstore=SimpleDocumentStore(),  # Tracks document hashes
+        docstore=SimpleDocumentStore(),  # Tracks document hashes to avoid re-reading files
+        cache=ingestion_cache,           # Tracks node hashes to avoid re-running expensive LLM extractions
     )
 
     # Load existing cache if available

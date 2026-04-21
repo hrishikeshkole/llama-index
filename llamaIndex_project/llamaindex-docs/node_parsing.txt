@@ -1,0 +1,5 @@
+In LlamaIndex, Node Parsing is the process of breaking down larger documents into smaller, manageable chunks called Nodes.
+Since Large Language Models have context window limits, you cannot usually feed an entire book or a large PDF into the model at once.
+A Node Parser splits the text based on token limits, sentences, or paragraphs, while preserving important metadata.
+LlamaIndex provides various parsers, such as the SentenceSplitter, which ensures that sentences are not broken in the middle.
+These nodes are then converted into embeddings and stored in the vector database.

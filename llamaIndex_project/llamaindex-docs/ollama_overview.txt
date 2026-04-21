@@ -1,0 +1,5 @@
+Ollama is an open-source framework that allows users to run large language models locally on their own machines.
+It simplifies the process of downloading, running, and managing local LLMs.
+By using Ollama, developers can ensure complete data privacy since the prompts and documents never leave their local environment.
+Ollama supports a wide variety of models, including Llama 3, Mistral, Gemma, and embedding models like nomic-embed-text.
+It exposes a local API that mimics the OpenAI API structure, making it incredibly easy to integrate with tools like LlamaIndex and LangChain.

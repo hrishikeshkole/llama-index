@@ -1,0 +1,5 @@
+ChromaDB is an open-source, AI-native vector database.
+It is specifically designed to make it easy to build LLM apps by making knowledge, facts, and skills pluggable for LLMs.
+ChromaDB runs locally or in a client-server architecture, providing a fast and lightweight solution for embedding storage and similarity search.
+It integrates seamlessly with frameworks like LlamaIndex, allowing developers to quickly prototype and scale retrieval systems.
+In Python, ChromaDB can run entirely in-memory or persist data to a local directory via DuckDB and Parquet files.

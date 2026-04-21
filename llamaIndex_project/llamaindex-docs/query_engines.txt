@@ -1,0 +1,4 @@
+A Query Engine is the core component in LlamaIndex that allows you to ask questions over your data.
+It takes a natural language query from the user, routes it to the underlying retriever (like a vector database), fetches the relevant documents, and then synthesizes a final response using the LLM.
+LlamaIndex provides multiple query engines, such as the standard VectorStoreQueryEngine, SubQuestionQueryEngine for complex queries, and RouterQueryEngine for deciding between multiple data sources.
+The Query Engine abstracts away the complexity of the prompt engineering and context stuffing required to get accurate answers from an LLM.

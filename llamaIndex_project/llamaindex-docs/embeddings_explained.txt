@@ -1,0 +1,5 @@
+Embeddings are numerical representations of real-world objects that machine learning algorithms can process.
+When applied to text, an embedding model maps words, sentences, or entire documents into a high-dimensional vector space.
+The key property of embeddings is that texts with similar meanings are mapped to vectors that are close to each other in this space.
+This mathematical proximity allows search engines and RAG systems to find relevant information based on semantic meaning rather than just exact keyword matching.
+For example, the words "dog" and "puppy" will have very similar embedding vectors.
